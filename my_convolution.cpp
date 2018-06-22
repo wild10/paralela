@@ -123,14 +123,27 @@ printf("Mostrar img 2\n");
 
 int parallel_conv2D(){
   // kernel 5 x 5
-  static int kernel[size_K][size_K] = {{1, 1, 1, 1, 1},
+ int kernel[size_K][size_K] = {{1, 1, 1, 1, 1},
                                 {1, 1, 1, 1, 1},
                                 {1, 1, 1, 1, 1},
                                 {1, 1, 1, 1, 1},
                                 {1, 1, 1, 1, 1}};
 
 //matriz img
+//allocanting images
+int **img = new int*[size_img]; // creando filas
+for(int i = 0; i < size_img; i++) //creando columnas
+    img[i] = new int [size_img];
 
+//asignando valores a img
+for(int i = 0; i < size_img; i++){
+  for(int j = 0; j < size_img; j++){
+    img[i][j] = 1;
+  }
+
+}
+
+/*
 static int img[size_img][size_img];
 for(int i = 0; i < size_img; i++){
   for (int j = 0; j < size_img; j++) {
@@ -138,8 +151,13 @@ for(int i = 0; i < size_img; i++){
   }
 }
 
+*/
 //imagene resultante
-static int  img2[size_img][size_img];
+// static int  img2[size_img][size_img];
+//reserva de memoria para img2
+int **img2 = new int*[size_img]; //creando finlas
+for(int i = 0; i < size_img; i++)
+  img2[i] = new int[size_img];
 
 // la mitad del kernel para posicionar en la matriz
 int mitad = size_K / 2;
@@ -170,7 +188,7 @@ double t= omp_get_wtime();
           if( ii >= 0 && ii < size_K && jj >= 0 && jj < size_K)
           {
               sum += img[ii][jj] * kernel[k][l];
-              // printf("%d ",sum );
+
           }
 
         }
