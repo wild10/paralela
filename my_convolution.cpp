@@ -163,11 +163,10 @@ for(int i = 0; i < size_img; i++)
 int mitad = size_K / 2;
 
 int sum,ii,jj,i,j,k,l;
-
 double t= omp_get_wtime();
-// Sleep(1000);
+int c;
 // double t2 = omp_get_wtime();
-# pragma omp parallel for  num_threads(num_thrds)  private(i,j,k,l,ii,jj,sum) schedule(dynamic)
+# pragma omp parallel for  num_threads(num_thrds)  private(i,j,k,l,ii,jj,sum, c) schedule(dynamic)
 // {
 // # pragma omp parallel for private(i,j,sum,k,l)
   for( i = 0; i < size_img; i++){
@@ -175,6 +174,7 @@ double t= omp_get_wtime();
 
       //acumular
       sum = 0;
+      c = 0;
       for(  k = 0 ; k < size_K ; k++){
         //kk = size_K - 1 - k; //indice fila keernel al revez
 
@@ -184,11 +184,11 @@ double t= omp_get_wtime();
           ii = i + (k - mitad);
           jj = j + (l - mitad);
 
-          //control de limites de la señal
+          //control de limites de la img
           if( ii >= 0 && ii < size_K && jj >= 0 && jj < size_K)
           {
               sum += img[ii][jj] * kernel[k][l];
-
+              c++;
           }
 
         }
