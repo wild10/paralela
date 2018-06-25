@@ -167,7 +167,7 @@ int sum,ii,jj,i,j,k,l;
 double t= omp_get_wtime();
 // Sleep(1000);
 // double t2 = omp_get_wtime();
-# pragma omp parallel for  num_threads(num_thrds)  private(i,j,k,l,ii,jj,sum)
+# pragma omp parallel for  num_threads(num_thrds)  private(i,j,k,l,ii,jj,sum) schedule(dynamic)
 // {
 // # pragma omp parallel for private(i,j,sum,k,l)
   for( i = 0; i < size_img; i++){
